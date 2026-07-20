@@ -3222,6 +3222,9 @@
     // ============================================================
 // CONTACT FORM WITH EMAILJS
 // ============================================================
+// ============================================================
+// CONTACT FORM WITH EMAILJS
+// ============================================================
 (function () {
   var form = document.getElementById("contactForm");
   var success = document.getElementById("formSuccess");
@@ -3231,6 +3234,12 @@
   form.addEventListener("submit", function (e) {
     e.preventDefault();
 
+    // Check required fields first
+    if (!form.checkValidity()) {
+      form.reportValidity();
+      return;
+    }
+
     emailjs.sendForm(
       "service_01s49za",
       "template_zm6f4un",
@@ -3239,26 +3248,17 @@
     .then(function () {
       success.classList.add("show");
       form.reset();
+
+      setTimeout(function () {
+        success.classList.remove("show");
+      }, 6000);
     })
     .catch(function (error) {
-      console.log("EMAILJS ERROR:", error);
-      alert("Failed to send message");
+      console.error(error);
+      alert("Failed to send message. Please try again.");
     });
   });
 })();
-    // ============================================================
-    // NEWSLETTER FORM
-    // ============================================================
-    (function() {
-      var form = document.getElementById('newsletterForm');
-      var note = document.getElementById('newsletterNote');
-      if (!form) return;
-      form.addEventListener('submit', function(e) {
-        e.preventDefault();
-        note.textContent = "Thanks for subscribing! (Hook this form up to your email service to go live.)";
-        form.reset();
-      });
-    })();
 
     // ============================================================
     // YEAR IN FOOTER
